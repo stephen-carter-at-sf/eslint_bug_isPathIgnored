@@ -14,6 +14,7 @@ test1With(undefined, 'dummy.ts', true);                      // [PASS]
 test2With('/some/path', '/some/path/dummy.js', true);        // [FAIL] - WHY? I say that I only want *.ts files ...
 test2With(undefined, '/some/path/dummy.js', true);           // [PASS] - This seems inconsistent with test1
 test2With('/some/path/other', '/some/path/dummy.js', true);  // [PASS]
+test2With('/some/path/', 'dummy.js', true);                  // [FAIL] - WHY? This makes no sense to me
 test2With('/some/path', '/some/path/dummy.mjs', true);       // [FAIL] - WHY? I don't want .mjs files at all ...
 test2With(undefined, 'dummy.mjs', true);                     // [FAIL] - WHY? ... ditto
 test2With('/some/path', '/some/path/dummy.ts', false);       // [PASS]
