@@ -40,12 +40,18 @@ async function test1With(cwdValue, file, expected) {
 async function test2With(cwdValue, file, expected) {
     const eslint = new ESLint({
         cwd: cwdValue,
-        baseConfig: [
-        {
-            files: ["**/*.ts"],
-            ignores: ["**/*.js"] // Even explicitely ignoring *.js files but it doesn't work
-        },
-        ...ts.configs.recommended],
+
+        // Imagine if I wanted to add in a config after this that does apply to javascript ...
+        // I first need javascript to not apply to these... but they do for some wierd reason.
+        // There seems to be no way to ignore js files with a subset of configs so that they
+        // only apply to typescript and vice verca. If I use a global ignore then it doesn't
+        // then let me add more configs that do apply to javascript.
+        baseConfig: ts.configs.recommended.map(c => {
+            c.files = ["**/*.ts"];
+            c.ignores = ["**/*.js","**/*.cjs","**/*.mjs"];
+            return c;
+        }),
+
         overrideConfigFile: true
     });
     
